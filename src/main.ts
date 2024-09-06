@@ -15,7 +15,12 @@ async function bootstrap() {
   app.use(helmet());
   app.enableCors();
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      // whitelist: true
+    }),
+  );
   app.setGlobalPrefix('/api');
   app.use(
     '/swagger',

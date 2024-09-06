@@ -1,4 +1,13 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { TaskService } from '../service/task.service';
@@ -6,6 +15,7 @@ import { responseModelFactory } from '../../shared/dto/basic.dto';
 import { TaskFilterDto } from '../dto/task-filter.dto';
 import { UserInterface } from '../../auth/interface/user-interface';
 import { GetUser } from '../../shared/decorator/get-user.decorator';
+import { CreateTaskDto } from '../dto/create-task.dto';
 
 @ApiTags('users')
 @ApiResponse({ status: 200, description: 'Successful' })
@@ -30,6 +40,13 @@ export class TaskController {
   async getOne(@Param('id') id: string, @GetUser() user: UserInterface) {
     return responseModelFactory({
       data: await this.service.getOne(id, user),
+    });
+  }
+  @Post('')
+  async create(@Body() input: CreateTaskDto, @GetUser() user: UserInterface) {
+    console.log('input', input);
+    return responseModelFactory({
+      data: await this.service.create(input, user),
     });
   }
 }
