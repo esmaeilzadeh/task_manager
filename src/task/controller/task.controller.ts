@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { TaskService } from '../service/task.service';
@@ -24,6 +24,12 @@ export class TaskController {
   ) {
     return responseModelFactory({
       data: await this.service.getAll(filters, user),
+    });
+  }
+  @Get(':id')
+  async getOne(@Param('id') id: string, @GetUser() user: UserInterface) {
+    return responseModelFactory({
+      data: await this.service.getOne(id, user),
     });
   }
 }

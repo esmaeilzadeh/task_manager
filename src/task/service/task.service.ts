@@ -11,7 +11,9 @@ export class TaskService {
   async getAll(filter: TaskFilterDto, user: UserInterface) {
     return this.mapper.mapOverview(await this.repo.getAll(filter, user.id));
   }
-  // async getOne(id: string, user: UserInterface) {
-  //   return this.mapper.mapOverview(await this.repo.getOne(id, user.id));
-  // }
+  async getOne(id: string, user: UserInterface) {
+    const task = await this.repo.getOne(id, user.id);
+    if (!task) throw new NotFoundException();
+    return this.mapper.mapDetail(task);
+  }
 }
