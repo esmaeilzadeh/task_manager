@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -8,7 +9,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { TaskService } from '../service/task.service';
 import { responseModelFactory } from '../../shared/dto/basic.dto';
@@ -60,6 +61,19 @@ export class TaskController {
     return responseModelFactory({
       data: await this.service.update(id, input, user),
       message: 'task updated successfully.',
+    });
+  }
+  @ApiQuery({ name: 'hard', type: Boolean, required: false })
+  @Delete(':id')
+  async delete(
+    @Param('id') id: string,
+    @GetUser() user: UserInterface,
+    @Query('hard') hard = false,
+  ) {
+    await this.service.delete(id, user, hard);
+    return responseModelFactory({
+      data: {},
+      message: 'task delete successfully.',
     });
   }
 }

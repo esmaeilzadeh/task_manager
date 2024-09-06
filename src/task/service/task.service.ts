@@ -5,6 +5,7 @@ import { TaskFilterDto } from '../dto/task-filter.dto';
 import { UserInterface } from '../../auth/interface/user-interface';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class TaskService {
@@ -44,5 +45,20 @@ export class TaskService {
     );
     if (!updateResult.affected) throw new NotFoundException();
     return this.getOne(id, user);
+  }
+  async delete(id: string, user: UserInterface, hard: boolean) {
+    let result: UpdateResult | DeleteResult;
+    if (hard) {
+      result = await this.repo.delete({
+        userId: user.id,
+        id: id,
+      });
+    } else {
+      result = await this.repo.softDelete({
+        userId: user.id,
+        id: id,
+      });
+    }
+    if (!result.affected) throw new NotFoundException();
   }
 }
