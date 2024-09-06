@@ -5,6 +5,12 @@ $ cp .env.example .env
 $ docker-compose up
 ```
 
+I commented the pgadmin in docker-compose if you need to view db you can uncomment the pgadmin service and run this:
+```bash
+$ docker-compose down
+$ docker-compose up
+```
+
 ## Test
 
 ```bash

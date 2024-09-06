@@ -7,7 +7,6 @@ import { UserEntity } from 'src/user/entity/user.entity';
 import { UserRepository } from 'src/user/repository/user.repository';
 import { SharedModule } from 'src/shared/shared.module';
 import { AuthUserService } from './service/auth-user.service';
-import { OtpModule } from '../otp/otp.module';
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity]), UserModule, SharedModule],
   providers: [JwtStrategy, UserRepository, AuthUserService],
