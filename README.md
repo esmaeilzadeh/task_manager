@@ -14,7 +14,7 @@ $ npm run test:e2e
 
 ## Instruction
 
-1- Open http://localhost:3004/swagger
+1- Open http://localhost:3004/swagger (with user: admin, password: admin)
 
 2- Open v1/auth/register part and create a user with your own email and password.
   for example:
