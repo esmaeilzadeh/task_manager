@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entity/user.entity';
+import { UserEntity } from '../entity/user.entity';
 import { DeepPartial } from 'typeorm';
 import { UserProfileDto } from '../dto/user-profile.dto';
 
 @Injectable()
 export class UserMapper {
-  mapProfile(user: DeepPartial<User>): UserProfileDto {
+  mapProfile(user: DeepPartial<UserEntity>): UserProfileDto {
     return {
       email: user?.email,
       id: user?.id,

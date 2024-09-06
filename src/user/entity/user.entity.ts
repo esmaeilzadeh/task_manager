@@ -1,9 +1,10 @@
 import { Exclude } from 'class-transformer';
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { BasicUuidEntity } from '../../shared/entity/basic-uuid.entity';
+import { TaskEntity } from '../../task/entity/task.entity';
 
-@Entity()
-export class User extends BasicUuidEntity {
+@Entity({ name: 'user' })
+export class UserEntity extends BasicUuidEntity {
   @Index('unique_user_email', ['email'], {
     unique: true,
     where: '"deletedAt" is null',
@@ -17,4 +18,7 @@ export class User extends BasicUuidEntity {
 
   @Column({ nullable: true })
   blockedAt: Date | null;
+
+  @OneToMany(() => TaskEntity, (t) => t.user)
+  tasks: TaskEntity[];
 }

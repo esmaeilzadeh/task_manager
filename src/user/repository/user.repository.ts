@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Role } from 'src/shared/enum/role.enum';
 import { DataSource, In, Repository } from 'typeorm';
-import { User } from '../entity/user.entity';
+import { UserEntity } from '../entity/user.entity';
 
 @Injectable()
-export class UserRepository extends Repository<User> {
+export class UserRepository extends Repository<UserEntity> {
   constructor(private dataSource: DataSource) {
-    super(User, dataSource.createEntityManager());
+    super(UserEntity, dataSource.createEntityManager());
   }
-  public async findById(id: string): Promise<Partial<User>> {
+  public async findById(id: string): Promise<Partial<UserEntity>> {
     return await this.findOne({
       where: { id },
     });
   }
 
-  public async findByEmail(email: string): Promise<Partial<User>> {
+  public async findByEmail(email: string): Promise<Partial<UserEntity>> {
     return await this.findOne({
       where: { email },
       select: {

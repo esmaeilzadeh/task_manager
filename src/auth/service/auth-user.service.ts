@@ -8,7 +8,7 @@ import { UserRepository } from 'src/user/repository/user.repository';
 import { JwtHelper } from '../../shared/helper/jwt.helper';
 import { PasswordHelper } from '../../shared/helper/password.helper';
 import { SecurityConfig } from '../../shared/interface/security-config.interface';
-import { User } from '../../user/entity/user.entity';
+import { UserEntity } from '../../user/entity/user.entity';
 import { LoginBodyDto } from '../dto/login-body.dto';
 import { AuthServiceInterface } from '../interface/auth-service-interface';
 import { LoginOutputDto } from '../dto/login-output.dto';
@@ -28,7 +28,7 @@ export class AuthUserService implements AuthServiceInterface {
     if (await this.repo.findByEmail(data.email)) {
       throw new ConflictException('another user with this email exists.');
     }
-    const user: DeepPartial<User> = await this.repo.save({
+    const user: DeepPartial<UserEntity> = await this.repo.save({
       email: data.email,
       password: await this.passwordHelper.hashPassword(data.password),
     });
@@ -72,7 +72,7 @@ export class AuthUserService implements AuthServiceInterface {
     };
   }
 
-  private async getAccessToken(user: Partial<User>) {
+  private async getAccessToken(user: Partial<UserEntity>) {
     const token = await this.jwtHelper.generateToken(
       user,
       this.getSecurityConfig().jwtSecret,
@@ -81,7 +81,7 @@ export class AuthUserService implements AuthServiceInterface {
     return token.token;
   }
 
-  private async getRefreshToken(user: Partial<User>) {
+  private async getRefreshToken(user: Partial<UserEntity>) {
     const token = await this.jwtHelper.generateToken(
       user,
       this.getSecurityConfig().jwtSecretRefresh,

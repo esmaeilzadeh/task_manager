@@ -8,7 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import * as jwt from 'jsonwebtoken';
 import { Role } from '../../shared/enum/role.enum';
-import { User } from '../../user/entity/user.entity';
+import { UserEntity } from '../../user/entity/user.entity';
 import { UserInterface } from '../interface/user-interface';
 @Injectable()
 export abstract class AbstractJwtGuard extends AuthGuard('accessToken') {

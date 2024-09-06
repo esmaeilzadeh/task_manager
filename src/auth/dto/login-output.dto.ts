@@ -1,4 +1,4 @@
-import { User } from 'src/user/entity/user.entity';
+import { UserEntity } from 'src/user/entity/user.entity';
 export class LoginOutputDto {
   accessToken: string;
   refreshToken: string;

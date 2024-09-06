@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserProfileDto } from '../dto/user-profile.dto';
-import { User } from '../entity/user.entity';
+import { UserEntity } from '../entity/user.entity';
 import { UserMapper } from '../mapper/user.mapper';
 import { UserRepository } from '../repository/user.repository';
 
@@ -11,7 +11,7 @@ export class UserService {
     private userMapper: UserMapper,
   ) {}
 
-  async findOneById(id: string): Promise<User> {
+  async findOneById(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { id } });
     return user;
   }
@@ -26,7 +26,7 @@ export class UserService {
     );
   }
 
-  async validateUserWithToken(userId: string): Promise<Partial<User>> {
+  async validateUserWithToken(userId: string): Promise<Partial<UserEntity>> {
     const user = await this.userRepository.findById(userId);
 
     if (!user) {
