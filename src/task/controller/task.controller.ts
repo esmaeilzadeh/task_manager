@@ -4,6 +4,8 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { TaskService } from '../service/task.service';
 import { responseModelFactory } from '../../shared/dto/basic.dto';
 import { TaskFilterDto } from '../dto/task-filter.dto';
+import { UserInterface } from '../../auth/interface/user-interface';
+import { GetUser } from '../../shared/decorator/get-user.decorator';
 
 @ApiTags('users')
 @ApiResponse({ status: 200, description: 'Successful' })
@@ -15,10 +17,13 @@ import { TaskFilterDto } from '../dto/task-filter.dto';
 @Controller('v1/tasks')
 export class TaskController {
   constructor(private readonly service: TaskService) {}
-  // @Get('')
-  // async getAll(@Query() filters:TaskFilterDto){
-  //   return responseModelFactory({
-  //     data: await this.service.getAll(filters)
-  //   };
-  // }
+  @Get('')
+  async getAll(
+    @Query() filters: TaskFilterDto,
+    @GetUser() user: UserInterface,
+  ) {
+    return responseModelFactory({
+      data: await this.service.getAll(filters, user),
+    });
+  }
 }

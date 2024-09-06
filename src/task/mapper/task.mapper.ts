@@ -1,14 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { DeepPartial } from 'typeorm';
-import { UserProfileDto } from '../dto/user-profile.dto';
 import { TaskEntity } from '../entity/task.entity';
 
 @Injectable()
 export class TaskMapper {
-  mapProfile(task: DeepPartial<TaskEntity>) {
+  mapDetail(task: DeepPartial<TaskEntity>) {
     return {
-      // title: task?.title,
-      // id: task?.id,
+      id: task?.id,
+      title: task?.title,
+      description: task?.description,
+      completed: task?.completed,
+      createdAt: task?.createdAt,
+      updatedAt: task?.updatedAt,
     };
+  }
+  mapOverview(tasks: DeepPartial<TaskEntity>[]) {
+    return tasks.map((task) => {
+      return {
+        id: task?.id,
+        title: task?.title,
+      };
+    });
   }
 }

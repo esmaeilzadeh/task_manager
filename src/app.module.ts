@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { SmsModule } from './sms/sms.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TaskModule } from './task/task.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     AuthModule,
     SmsModule,
+    TaskModule,
   ],
   controllers: [],
   providers: [
