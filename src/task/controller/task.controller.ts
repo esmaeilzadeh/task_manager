@@ -16,6 +16,7 @@ import { TaskFilterDto } from '../dto/task-filter.dto';
 import { UserInterface } from '../../auth/interface/user-interface';
 import { GetUser } from '../../shared/decorator/get-user.decorator';
 import { CreateTaskDto } from '../dto/create-task.dto';
+import { UpdateTaskDto } from '../dto/update-task.dto';
 
 @ApiTags('users')
 @ApiResponse({ status: 200, description: 'Successful' })
@@ -47,6 +48,18 @@ export class TaskController {
     console.log('input', input);
     return responseModelFactory({
       data: await this.service.create(input, user),
+      message: 'task created successfully.',
+    });
+  }
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() input: UpdateTaskDto,
+    @GetUser() user: UserInterface,
+  ) {
+    return responseModelFactory({
+      data: await this.service.update(id, input, user),
+      message: 'task updated successfully.',
     });
   }
 }

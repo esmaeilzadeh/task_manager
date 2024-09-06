@@ -4,6 +4,7 @@ import { TaskRepository } from '../repository/task.repository';
 import { TaskFilterDto } from '../dto/task-filter.dto';
 import { UserInterface } from '../../auth/interface/user-interface';
 import { CreateTaskDto } from '../dto/create-task.dto';
+import { UpdateTaskDto } from '../dto/update-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -27,5 +28,21 @@ export class TaskService {
         description: input.description,
       }),
     );
+  }
+  async update(id: string, input: UpdateTaskDto, user: UserInterface) {
+    console.log(input);
+    const updateResult = await this.repo.update(
+      {
+        userId: user.id,
+        id: id,
+      },
+      {
+        title: input.title,
+        description: input.description,
+        completed: input.completed,
+      },
+    );
+    if (!updateResult.affected) throw new NotFoundException();
+    return this.getOne(id, user);
   }
 }
