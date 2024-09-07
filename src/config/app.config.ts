@@ -12,11 +12,5 @@ export const appConfig: AppConfigInterface = {
     jwtExpiresInRefresh: process.env.JWT_EXPIRES_IN_REFRESH || '3d',
     bcryptSaltOrRound: parseInt(process.env.BCRYPT_ROUND) || 10,
   },
-  redis: {
-    password: process.env.REDIS_PASSWORD || '',
-    host: process.env.REDIS_HOST || 'redis',
-    port: parseInt(process.env.REDIS_PORT) || 6379,
-    db: parseInt(process.env.REDIS_DB) || 1,
-  },
 };
 export default (): AppConfigInterface => appConfig;

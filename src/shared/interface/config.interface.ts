@@ -9,5 +9,4 @@ export interface AppConfigInterface {
   security: SecurityConfig;
   typeOrm: DataSourceOptions;
   environment: EnvEnum;
-  redis: RedisConfigInterface;
 }

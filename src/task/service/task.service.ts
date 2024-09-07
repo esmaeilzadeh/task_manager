@@ -21,7 +21,6 @@ export class TaskService {
   }
 
   async create(input: CreateTaskDto, user: UserInterface) {
-    console.log(input);
     return this.mapper.mapDetail(
       await this.repo.save({
         userId: user.id,
@@ -31,7 +30,6 @@ export class TaskService {
     );
   }
   async update(id: string, input: UpdateTaskDto, user: UserInterface) {
-    console.log(input);
     const updateResult = await this.repo.update(
       {
         userId: user.id,
@@ -57,7 +55,7 @@ export class TaskService {
       result = await this.repo.softDelete({
         userId: user.id,
         id: id,
-        deletedAt: IsNull()
+        deletedAt: IsNull(),
       });
     }
     if (!result.affected) throw new NotFoundException();

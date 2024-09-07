@@ -28,9 +28,6 @@ export abstract class AbstractJwtGuard extends AuthGuard('accessToken') {
       // Remove the Bearer prefix
       token = token.slice(bearerPrefix.length);
     }
-    console.log('token ', token);
-    console.log('token secret:', this.getSecretKey());
-
     if (!token) {
       throw new UnauthorizedException();
     }
