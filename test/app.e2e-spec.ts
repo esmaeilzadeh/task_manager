@@ -8,28 +8,13 @@ import { CreateTaskDto } from '../src/task/dto/create-task.dto';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeormConfig } from '../src/config/typeorm.config';
-import testConfig from './testConfig';
 
 describe('TaskController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        ,
-        ConfigModule.forRoot({
-          isGlobal: true,
-          load: [() => testConfig()],
-        }),
-        TypeOrmModule.forRootAsync({
-          imports: [ConfigModule],
-          inject: [ConfigService],
-          useFactory: () => typeormConfig(),
-        }),
-        ,
-        UserModule,
-        AuthModule,
-      ],
+      imports: [AppModule, UserModule, AuthModule],
     }).compile();
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
