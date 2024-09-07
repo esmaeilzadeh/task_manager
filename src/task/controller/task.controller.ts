@@ -73,7 +73,7 @@ export class TaskController {
     await this.service.delete(id, user, hard);
     return responseModelFactory({
       data: {},
-      message: 'task delete successfully.',
+      message: 'task deleted successfully.',
     });
   }
 }

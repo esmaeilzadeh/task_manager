@@ -37,7 +37,7 @@ services:
       dockerfile: Dockerfile
     container_name: listai-nest
     ports:
-      - '$PORT:$PORT'
+      - '$PORT:3000'
     command: bash -c "npm run build && npm run start"
     depends_on:
       db:
