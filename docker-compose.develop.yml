@@ -10,7 +10,6 @@ services:
     container_name: bartar-postgres
     volumes:
       - postgres:/var/lib/postgresql/data
-
   pgadmin:
     image: dpage/pgadmin4:8.6
     container_name: bartar-pgadmin4
@@ -25,12 +24,6 @@ services:
         condition: service_started
     volumes:
       - pgadmin4:/var/lib/pgadmin
-
-  redis:
-    image: redis:7.2.0
-    restart: always
-    container_name: bartar-redis
-
   app:
     build:
       context: .
@@ -44,8 +37,6 @@ services:
       - ./:/app
     depends_on:
       db:
-        condition: service_started
-      redis:
         condition: service_started
 
 volumes:

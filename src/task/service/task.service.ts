@@ -5,7 +5,7 @@ import { TaskFilterDto } from '../dto/task-filter.dto';
 import { UserInterface } from '../../auth/interface/user-interface';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { IsNull, DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class TaskService {
@@ -57,6 +57,7 @@ export class TaskService {
       result = await this.repo.softDelete({
         userId: user.id,
         id: id,
+        deletedAt: IsNull()
       });
     }
     if (!result.affected) throw new NotFoundException();

@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
@@ -18,7 +18,7 @@ import { UserInterface } from '../../auth/interface/user-interface';
 import { GetUser } from '../../shared/decorator/get-user.decorator';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-
+import {UUIDParam} from "../../shared/interceptor/UUID-Param";
 @ApiTags('users')
 @ApiResponse({ status: 200, description: 'Successful' })
 @ApiResponse({ status: 500, description: 'Internal server error' })
@@ -39,14 +39,13 @@ export class TaskController {
     });
   }
   @Get(':id')
-  async getOne(@Param('id') id: string, @GetUser() user: UserInterface) {
+  async getOne(@UUIDParam('id') id: string, @GetUser() user: UserInterface) {
     return responseModelFactory({
       data: await this.service.getOne(id, user),
     });
   }
   @Post('')
   async create(@Body() input: CreateTaskDto, @GetUser() user: UserInterface) {
-    console.log('input', input);
     return responseModelFactory({
       data: await this.service.create(input, user),
       message: 'task created successfully.',
@@ -54,7 +53,7 @@ export class TaskController {
   }
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+      @UUIDParam('id')  id: string,
     @Body() input: UpdateTaskDto,
     @GetUser() user: UserInterface,
   ) {
@@ -66,9 +65,9 @@ export class TaskController {
   @ApiQuery({ name: 'hard', type: Boolean, required: false })
   @Delete(':id')
   async delete(
-    @Param('id') id: string,
+      @UUIDParam('id') id: string,
     @GetUser() user: UserInterface,
-    @Query('hard') hard = false,
+    @Query('hard') hard:boolean = false,
   ) {
     await this.service.delete(id, user, hard);
     return responseModelFactory({

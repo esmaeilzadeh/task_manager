@@ -6,7 +6,6 @@ import appConfig from './config/app.config';
 import { typeormConfig } from './config/typeorm.config';
 import { ExceptionHandler } from './shared/handler/exception.handler';
 import { SharedModule } from './shared/shared.module';
-import { SmsModule } from './sms/sms.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
@@ -27,7 +26,6 @@ import { TaskModule } from './task/task.module';
     SharedModule,
     UserModule,
     AuthModule,
-    SmsModule,
     TaskModule,
   ],
   controllers: [],
