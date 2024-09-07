@@ -4,7 +4,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserRepository } from 'src/user/repository/user.repository';
 import { JwtHelper } from '../../shared/helper/jwt.helper';
 import { PasswordHelper } from '../../shared/helper/password.helper';
 import { SecurityConfig } from '../../shared/interface/security-config.interface';
@@ -15,6 +14,7 @@ import { LoginOutputDto } from '../dto/login-output.dto';
 import { RegisterBodyDto } from '../dto/register-body.dto';
 import { DeepPartial } from 'typeorm';
 import { UserInterface } from '../interface/user-interface';
+import { UserRepository } from '../../user/repository/user.repository';
 
 @Injectable()
 export class AuthUserService implements AuthServiceInterface {
